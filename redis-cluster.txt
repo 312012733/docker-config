@@ -1,0 +1,79 @@
+## 安装Redis，配置RedisCluster集群
+
+0.创建redis的卷，并把redis.conf 配置文件放到 redis-conf卷目录下。
+docker create volume redis-conf
+docker create volume redis-data1
+docker create volume redis-data2
+docker create volume redis-data3
+docker create volume redis-data4
+docker create volume redis-data5
+docker create volume redis-data6
+
+1. 安装Redis镜像
+docker pull redis
+
+
+2. 创建net2网段
+docker network create --subnet=172.19.0.0/16 net2
+
+
+3. 创建6节点Redis容器
+docker run -it -d --name r1 -p 5001:6379 --privileged -v redis-conf:/usr/local/etc/redis/ -v redis-data1:/data --net=net2 --ip 172.19.0.2 redis bash
+docker run -it -d --name r2 -p 5002:6379 --privileged -v redis-conf:/usr/local/etc/redis/ -v redis-data2:/data --net=net2 --ip 172.19.0.3 redis bash
+docker run -it -d --name r3 -p 5003:6379 --privileged -v redis-conf:/usr/local/etc/redis/ -v redis-data3:/data --net=net2 --ip 172.19.0.4 redis bash
+docker run -it -d --name r4 -p 5004:6379 --privileged -v redis-conf:/usr/local/etc/redis/ -v redis-data4:/data --net=net2 --ip 172.19.0.5 redis bash
+docker run -it -d --name r5 -p 5005:6379 --privileged -v redis-conf:/usr/local/etc/redis/ -v redis-data5:/data --net=net2 --ip 172.19.0.6 redis bash
+docker run -it -d --name r6 -p 5006:6379 --privileged -v redis-conf:/usr/local/etc/redis/ -v redis-data6:/data --net=net2 --ip 172.19.0.7 redis bash
+
+
+docker run -it -d --name r1 -p 5001:6379 --privileged -v redis-conf:/usr/local/etc/redis/ -v redis-data1:/data --net=net2 --ip 172.19.0.2 312012733/ubuntu:redis bash
+docker run -it -d --name r2 -p 5002:6379 --privileged -v redis-conf:/usr/local/etc/redis/ -v redis-data2:/data --net=net2 --ip 172.19.0.3 312012733/ubuntu:redis bash
+docker run -it -d --name r3 -p 5003:6379 --privileged -v redis-conf:/usr/local/etc/redis/ -v redis-data3:/data --net=net2 --ip 172.19.0.4 312012733/ubuntu:redis bash
+docker run -it -d --name r4 -p 5004:6379 --privileged -v redis-conf:/usr/local/etc/redis/ -v redis-data4:/data --net=net2 --ip 172.19.0.5 312012733/ubuntu:redis bash
+docker run -it -d --name r5 -p 5005:6379 --privileged -v redis-conf:/usr/local/etc/redis/ -v redis-data5:/data --net=net2 --ip 172.19.0.6 312012733/ubuntu:redis bash
+docker run -it -d --name r6 -p 5006:6379 --privileged -v redis-conf:/usr/local/etc/redis/ -v redis-data6:/data --net=net2 --ip 172.19.0.7 312012733/ubuntu:redis bash
+
+
+
+4. 启动6节点Redis服务器
+
+#进入r1节点
+docker exec -it r1 bash
+redis-server /usr/local/etc/redis/redis.conf
+
+#进入r2节点
+docker exec -it r2 bash
+redis-server /usr/local/etc/redis/redis.conf
+
+#进入r3节点
+docker exec -it r3 bash
+redis-server /usr/local/etc/redis/redis.conf
+
+#进入r4节点
+docker exec -it r4 bash
+redis-server /usr/local/etc/redis/redis.conf
+
+#进入r5节点
+docker exec -it r5 bash
+redis-server /usr/local/etc/redis/redis.conf
+
+#进入r6节点
+docker exec -it r6 bash
+redis-server /usr/local/etc/redis/redis.conf
+
+
+5. 创建Cluster集群
+#安装ruby
+#apt-get update
+#apt-get install ruby
+#apt-get install rubygems
+#gem install redis
+
+#在r1节点上执行下面的指令
+#cp /usr/local/etc/redis/redis-trib.rb /usr/redis/cluster/
+
+#创建Cluster集群
+#redis-trib.rb create --replicas 1 172.19.0.2:6379 172.19.0.3:6379 172.19.0.4:6379 172.19.0.5:6379 172.19.0.6:6379 172.19.0.7:6379
+redis-cli --cluster create --cluster-replicas 1 172.19.0.2:6379 172.19.0.3:6379 172.19.0.4:6379 172.19.0.5:6379 172.19.0.6:6379 172.19.0.7:6379
+
+
