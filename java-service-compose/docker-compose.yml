@@ -14,7 +14,36 @@ services:
       net-java:
         ipv4_address: 172.100.0.2
     command: nohup java -Xms128m -Xmx256m -jar /home/soft/renren-fast.jar --server.port=19001 >> /home/soft/renren-fast-19001.log 2>&1 &
+  j2:
+    build:
+      context: .
+      dockerfile: Dockerfile-java
+    container_name: j2
+    ports:
+     - "19002:19002"
+    volumes:
+     - "jarlib:/home/soft"
+#    networks_mode: "host"
+    networks:
+      net-java:
+        ipv4_address: 172.100.0.2
+    command: nohup java -Xms128m -Xmx256m -jar /home/soft/renren-fast.jar --server.port=19002 >>/home/soft/renren-fast-19002.log 2>&1 &
+  j3:
+    build:
+      context: .
+      dockerfile: Dockerfile-java
+    container_name: j3
+    ports:
+     - "19003:19003"
+    volumes:
+     - "jarlib:/home/soft"
+#    networks_mode: "host"
+    networks:
+      net-java:
+        ipv4_address: 172.100.0.2
+    command: nohup java -Xms128m -Xmx256m -jar /home/soft/renren-fast.jar --server.port=19003 >> /home/soft/renren-fast-19003.log 2>&1 &
 
+    
 volumes:
   jarlib:
 
