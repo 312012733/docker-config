@@ -1,3 +1,3 @@
 FROM java:latest
-ADD ./jar /home/soft
+ADD ./java /home/soft
 WORKDIR /home/soft
