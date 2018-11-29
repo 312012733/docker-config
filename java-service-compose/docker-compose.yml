@@ -26,7 +26,7 @@ services:
 #    networks_mode: "host"
     networks:
       net-java:
-        ipv4_address: 172.100.0.2
+        ipv4_address: 172.100.0.3
     command: nohup java -Xms128m -Xmx256m -jar /home/soft/renren-fast.jar --server.port=19002 >>/home/soft/renren-fast-19002.log 2>&1 &
   j3:
     build:
@@ -40,7 +40,7 @@ services:
 #    networks_mode: "host"
     networks:
       net-java:
-        ipv4_address: 172.100.0.2
+        ipv4_address: 172.100.0.4
     command: nohup java -Xms128m -Xmx256m -jar /home/soft/renren-fast.jar --server.port=19003 >> /home/soft/renren-fast-19003.log 2>&1 &
 
     
