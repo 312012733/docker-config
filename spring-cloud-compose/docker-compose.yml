@@ -8,7 +8,7 @@ services:
     container_name: eureka1
     volumes: 
      - "/home/spring-cloud-compose/java:/home/soft"
-     - "/home/spring-cloud-compose/logs/eureka1:/logs"
+     - "/home/spring-cloud-compose/temp/logs/eureka1:/logs"
 #    network_mode: "host"
     privileged: true
     ports:
@@ -23,7 +23,7 @@ services:
     container_name: eureka2
     volumes: 
      - "/home/spring-cloud-compose/java:/home/soft"
-     - "/home/spring-cloud-compose/logs/eureka2:/logs"
+     - "/home/spring-cloud-compose/temp/logs/eureka2:/logs"
 #    network_mode: "host"
     privileged: true
     ports:
@@ -38,7 +38,7 @@ services:
     container_name: eureka3
     volumes: 
      - "/home/spring-cloud-compose/java:/home/soft"
-     - "/home/spring-cloud-compose/logs/eureka3:/logs"
+     - "/home/spring-cloud-compose/temp/logs/eureka3:/logs"
 #    network_mode: "host"
     privileged: true
     ports:
@@ -49,10 +49,70 @@ services:
     command: java -Xms128m -Xmx256m -jar /home/soft/discover-service-0.0.1-SNAPSHOT.jar --server.port=8763  
 
 
-volumes: 
-  eureka1-log:
-  eureka2-log:
-  eureka3-log:
+  config-service1: 
+    image: java
+    container_name: config-service1
+    volumes: 
+     - "/home/spring-cloud-compose/java:/home/soft"
+     - "/home/spring-cloud-compose/temp/config-center:/home/config-center"
+     - "/home/spring-cloud-compose/temp/logs/config-service1:/logs"
+#    network_mode: "host"
+    privileged: true
+    ports:
+     - "11001:11001"
+    networks:
+      net1:  
+        ipv4_address: 172.90.0.11
+    depends_on:
+     - eureka1
+     - eureka2
+     - eureka3
+    command: java -Xms128m -Xmx256m -jar /home/soft/config-service-0.0.1-SNAPSHOT.jar --server.port=11001  
+
+  config-service2: 
+    image: java
+    container_name: config-service2
+    volumes: 
+     - "/home/spring-cloud-compose/java:/home/soft"
+     - "/home/spring-cloud-compose/temp/config-center:/home/config-center"
+     - "/home/spring-cloud-compose/temp/logs/config-service2:/logs"
+#    network_mode: "host"
+    privileged: true
+    ports:
+     - "11002:11002"
+    networks:
+      net1:  
+        ipv4_address: 172.90.0.12
+    depends_on:
+     - eureka1
+     - eureka2
+     - eureka3
+    command: java -Xms128m -Xmx256m -jar /home/soft/config-service-0.0.1-SNAPSHOT.jar --server.port=11002
+
+  config-service3: 
+    image: java
+    container_name: config-service3
+    volumes: 
+     - "/home/spring-cloud-compose/java:/home/soft"
+     - "/home/spring-cloud-compose/temp/config-center:/home/config-center"
+     - "/home/spring-cloud-compose/temp/logs/config-service3:/logs"
+#    network_mode: "host"
+    privileged: true
+    ports:
+     - "11003:11003"
+    networks:
+      net1:  
+        ipv4_address: 172.90.0.13
+    depends_on:
+     - eureka1
+     - eureka2
+     - eureka3
+    command: java -Xms128m -Xmx256m -jar /home/soft/config-service-0.0.1-SNAPSHOT.jar --server.port=11003
+
+#volumes: 
+#  eureka1-log:
+#  eureka2-log:
+#  eureka3-log:
   
 networks:
   net1: 
