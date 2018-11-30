@@ -1,35 +1,58 @@
 version: '3'
 services:
-  j1:
+  eureka1: 
     image: java
 #    build:
 #      context: .
 #      dockerfile: Dockerfile-java
-    container_name: j1
+    container_name: eureka1
     volumes: 
      - "/home/spring-cloud-compose/java:/home/soft"
-     - "j1-log:/logs"
-    network_mode: "host"
+     - "/home/spring-cloud-compose/logs/eureka1:/logs"
+#    network_mode: "host"
     privileged: true
-    command: nohup java -Xms128m -Xmx256m -jar /home/soft/renren-fast.jar --server.port=19001 >>/logs/renren-fast-19001.log 2>&1 &
     ports:
-     - "19001:19001"
+     - "8761:8761"
     networks:
-      net-java:
-        ipv4_address: 172.100.10.1
+      net1: 
+        ipv4_address: 172.90.0.2
+    command: nohup java -Xms128m -Xmx256m -jar /home/soft/discover-service-0.0.1-SNAPSHOT.jar --server.port=8761 >>/logs/discover-service-0.0.1-SNAPSHOT-19001.log 2>&1 &
         
-  j2:
+  eureka2: 
     image: java
-    container_name: j2
+    container_name: eureka2
     volumes: 
      - "/home/spring-cloud-compose/java:/home/soft"
-     - "j2-log:/logs"
-    network_mode: "host"
-    command: java -Xms128m -Xmx256m -jar /home/soft/renren-fast.jar --server.port=19002  
+     - "/home/spring-cloud-compose/logs/eureka2:/logs"
+#    network_mode: "host"
+    privileged: true
+    ports:
+     - "8762:8762"
+    networks:
+      net1:  
+        ipv4_address: 172.90.0.3
+    command: java -Xms128m -Xmx256m -jar /home/soft/discover-service-0.0.1-SNAPSHOT.jar --server.port=8762  
 
-volumes:
-  j1-log:
-  j2-log:
+  eureka3: 
+    image: java
+    container_name: eureka3
+    volumes: 
+     - "/home/spring-cloud-compose/java:/home/soft"
+     - "/home/spring-cloud-compose/logs/eureka3:/logs"
+#    network_mode: "host"
+    privileged: true
+    ports:
+     - "8763:8763"
+    networks:
+      net1:  
+        ipv4_address: 172.90.0.4
+    command: java -Xms128m -Xmx256m -jar /home/soft/discover-service-0.0.1-SNAPSHOT.jar --server.port=8763  
+
+
+volumes: 
+  eureka1-log:
+  eureka2-log:
+  eureka3-log:
   
 networks:
   net1: 
@@ -39,10 +62,3 @@ networks:
       config:
       -
         subnet: 172.90.0.0/24
-  net2: 
-    driver: bridge
-    ipam:
-      driver: default
-      config:
-      -
-        subnet: 172.100.0.0/24
