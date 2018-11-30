@@ -1,0 +1,75 @@
+version: '3'
+services:
+  j1:
+    image: java
+#    build:
+#      context: .
+#      dockerfile: Dockerfile-java
+    container_name: j1
+    volumes: 
+     - "/home/java-service-compose/java:/home/soft"
+     - "j1-log:/logs"
+    network_mode: "host"
+    privileged: true
+    command: nohup java -Xms128m -Xmx256m -jar /home/soft/renren-fast.jar --server.port=19001 >>/logs/renren-fast-19001.log 2>&1 &
+#    command: java -Xms128m -Xmx256m -jar /home/soft/renren-fast.jar --server.port=19001
+
+#    ports:
+#     - "19001:19001"
+#    networks:
+#      net-java:
+#        ipv4_address: 172.100.10.1
+  j2:
+    image: java
+    container_name: j2
+    volumes: 
+     - "/home/java-service-compose/java:/home/soft"
+     - "j2-log:/logs"
+    network_mode: "host"
+    command: java -Xms128m -Xmx256m -jar /home/soft/renren-fast.jar --server.port=19002  
+  j3: 
+    image: java
+    container_name: j3
+    volumes: 
+     - "/home/java-service-compose/java:/home/soft"
+     - "j3-log:/logs"
+    network_mode: "host"
+    command: java -Xms128m -Xmx256m -jar /home/soft/renren-fast.jar --server.port=19003  
+  jn1: 
+    image: nginx
+    container_name: jn1
+    volumes: 
+     - "/home/java-service-compose/nginx/n1/nginx.conf:/etc/nginx/nginx.conf"
+    network_mode: "host"
+    depends_on:
+     - j1
+     - j2
+     - j3
+#    ports:
+#     - "6001:6001"
+#    networks:
+#      net-java:
+#        ipv4_address: 172.100.90.1
+  jn2: 
+    image: nginx
+    container_name: jn2
+    volumes:
+     - "/home/java-service-compose/nginx/n2/nginx.conf:/etc/nginx/nginx.conf"
+    network_mode: "host"
+    depends_on:
+     - j1
+     - j2
+     - j3
+     - jn1
+volumes:
+  j1-log:
+  j2-log:
+  j3-log:
+#networks:
+#  net-java:
+#    driver: bridge
+#    ipam:
+#      driver: default
+#      config:
+#      -
+#        subnet: 172.100.0.0/24
