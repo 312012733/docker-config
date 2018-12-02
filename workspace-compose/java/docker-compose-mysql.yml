@@ -1,0 +1,16 @@
+version: '3'
+services:
+#docker run --name some-mysql -v /my/own/datadir:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql:tag
+  mysql1: 
+    image: mysql
+    container_name: mysql1
+    volumes: 
+     - "/home/workspace-compose/volume/mysql/data:/var/lib/mysql"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    network_mode: "host"
+    privileged: true
+
+        
+
+
