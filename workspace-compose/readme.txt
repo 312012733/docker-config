@@ -1,0 +1,11 @@
+kafka：
+   environment: 
+#      KAFKA_ADVERTISED_HOST_NAME: 192.168.3.241
+#      KAFKA_ADVERTISED_PORT: 9092 
+      KAFKA_LISTENERS: PLAINTEXT://192.168.3.241:9092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://192.168.3.241:9092
+	  
+	  
+
+eureka1: defaultZone: http://192.168.3.241:8761/eureka/,http://192.168.3.241:8762/eureka/,http://192.168.3.241:8763/eureka/
+
