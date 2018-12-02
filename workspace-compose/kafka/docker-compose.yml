@@ -9,6 +9,7 @@ services:
     volumes: 
      - "/home/workspace-compose/kafka/volume/zookeeper/data:/data"
      - "/home/workspace-compose/kafka/volume/zookeeper/datalog:/datalog"
+     - "/home/workspace-compose/kafka/volume/zookeeper/logs:/logs"
 #     - "/home/workspace-compose/kafka/volume/zookeeper/conf/zoo.cfg:/conf/zoo.cfg 
 
         
@@ -19,6 +20,7 @@ services:
     network_mode: "host"
     volumes: 
      - "/home/workspace-compose/kafka/volume/kafka/logs:/home/kafka/logs"
+     - "/home/workspace-compose/kafka/volume/kafka/kafka:/kafka"
     environment: 
 #      KAFKA_ADVERTISED_HOST_NAME: 192.168.3.241
 #      KAFKA_ADVERTISED_PORT: 9092 
