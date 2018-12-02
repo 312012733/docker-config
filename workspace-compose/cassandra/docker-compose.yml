@@ -6,9 +6,7 @@ services:
     container_name: cassandra1
     volumes: 
      - "/home/workspace-compose/cassandra/volume/conf/cassandra-3.11.3.yaml:/etc/cassandra/cassandra.yaml" 
-     - "/home/workspace-compose/cassandra/volume/data:/home/cassandra/data" 
-     - "/home/workspace-compose/cassandra/volume/commitlog:/home/cassandra/commitlog" 
-     - "/home/workspace-compose/cassandra/volume/saved_caches:/home/cassandra/saved_caches" 
+     - "/home/workspace-compose/cassandra/volume/data:/var/lib/cassandra" 
 #    environment:
 #      CASSANDRA_LISTEN_ADDRESS: 
     network_mode: "host"
