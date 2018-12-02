@@ -1,0 +1,32 @@
+version: '3'
+services:
+
+#docker run -it -d --net=host --name j1 -v /home/workspace-compose/java/1-eureka/volume/lib:/home/java/lib -v /home/workspace-compose/java/1-eureka/volume/logs:/logs java java -Xms128m -Xmx256m -jar /home/java/lib/discover-service-0.0.1-SNAPSHOT.jar --server.port=8761
+
+  eureka1: 
+    image: java
+    container_name: eureka1
+    volumes: 
+     - "/home/workspace-compose/java/1-eureka/volume/lib:/home/java/lib"
+     - "/home/workspace-compose/java/1-eureka/volume/logs/8761:/logs"
+    network_mode: "host"
+    command: java -Xms128m -Xmx256m -jar /home/java/lib/discover-service-0.0.1-SNAPSHOT.jar --server.port=8761
+        
+  eureka2: 
+    image: java
+    container_name: eureka2
+    volumes: 
+     - "/home/workspace-compose/java/1-eureka/volume/lib:/home/java/lib"
+     - "/home/workspace-compose/java/1-eureka/volume/logs/8762:/logs"
+    network_mode: "host"
+    command: java -Xms128m -Xmx256m -jar /home/java/lib/discover-service-0.0.1-SNAPSHOT.jar --server.port=8762
+
+  eureka3: 
+    image: java
+    container_name: eureka3
+    volumes: 
+     - "/home/workspace-compose/java/1-eureka/volume/lib:/home/java/lib"
+     - "/home/workspace-compose/java/1-eureka/volume/logs/8763:/logs"
+    network_mode: "host"
+    command: java -Xms128m -Xmx256m -jar /home/java/lib/discover-service-0.0.1-SNAPSHOT.jar --server.port=8763
+
