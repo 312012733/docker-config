@@ -1,3 +1,0 @@
-FROM java:latest
-ADD ./java /home/soft
-WORKDIR /home/soft
