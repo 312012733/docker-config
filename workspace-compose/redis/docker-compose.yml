@@ -4,7 +4,7 @@ services:
 #docker run -it -d --name r1  --privileged -v /home/workspace-compose/redis/volume/conf/redis-5.0.2.conf:/usr/local/etc/redis/redis.conf --net=host redis redis-server /usr/local/etc/redis/redis.conf
 
   redis1: 
-    image: redis
+    image: redis:5.0.1
     container_name: redis1
     volumes: 
      - "/home/workspace-compose/redis/volume/conf/redis-5.0.2.conf:/usr/local/etc/redis/redis.conf"

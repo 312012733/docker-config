@@ -2,7 +2,7 @@ version: '3'
 services:
 
   cassandra1: 
-    image: casandra:3.11.3
+    image: cassandra:3.11.3
     container_name: cassandra1
     volumes: 
      - "/home/workspace-compose/cassandra/volume/conf/cassandra-3.11.3.yaml:/etc/cassandra/cassandra.yaml" 
