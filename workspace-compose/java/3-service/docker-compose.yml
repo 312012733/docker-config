@@ -1,21 +1,23 @@
 version: '3'
 services:
 
-  spring-consumer1: 
+  kafka-spring-consumer1: 
     image: java
-    container_name: spring-consumer1
+    container_name: kafka-spring-consumer1
     volumes: 
      - "/home/workspace-compose/java/3-service/volume/lib/kafka-spring-consumer-service-0.0.1-SNAPSHOT.jar:/home/java/lib/kafka-spring-consumer-service-0.0.1-SNAPSHOT.jar"
      - "/home/workspace-compose/java/3-service/volume/logs/kafka-spring-consumer/19001:/logs"
+     - "/home/workspace-compose/java/3-service/volume/local-config-center/19001:/home/java/local-config-center"
     network_mode: "host"
     command: java -Xms128m -Xmx256m -jar /home/java/lib/kafka-spring-consumer-service-0.0.1-SNAPSHOT.jar --server.port=19001
         
-  spring-consumer2: 
+  kafka-spring-consumer2: 
     image: java
-    container_name: spring-consumer2
+    container_name: kafka-spring-consumer2
     volumes: 
      - "/home/workspace-compose/java/3-service/volume/lib/kafka-spring-consumer-service-0.0.1-SNAPSHOT.jar:/home/java/lib/kafka-spring-consumer-service-0.0.1-SNAPSHOT.jar"
      - "/home/workspace-compose/java/3-service/volume/logs/kafka-spring-consumer/19002:/logs"
+     - "/home/workspace-compose/java/3-service/volume/local-config-center/19002:/home/java/local-config-center"
     network_mode: "host"
     command: java -Xms128m -Xmx256m -jar /home/java/lib/kafka-spring-consumer-service-0.0.1-SNAPSHOT.jar --server.port=19002
         
