@@ -1,111 +1,32 @@
 version: '3'
 services:
+
+#docker run -it -d --net=host --name j1 -v /home/workspace-compose/java/1-eureka/volume/lib:/home/java/lib -v /home/workspace-compose/java/1-eureka/volume/logs:/logs java java -Xms128m -Xmx256m -jar /home/java/lib/discover-service-0.0.1-SNAPSHOT.jar --server.port=8761
+
   eureka1: 
     image: java
     container_name: eureka1
     volumes: 
-     - "/home/spring-cloud-compose/java:/home/soft"
-     - "/home/spring-cloud-compose/temp/logs/eureka1:/logs"
-#    network_mode: "host"
-    privileged: true
-    ports:
-     - "8761:8761"
-    networks:
-      net1: 
-        ipv4_address: 172.90.0.2
-    command: nohup java -Xms128m -Xmx256m -jar /home/soft/discover-service-0.0.1-SNAPSHOT.jar --server.port=8761 >>/logs/discover-service-0.0.1-SNAPSHOT-19001.log 2>&1 &
+     - "/home/workspace-compose/java/1-eureka/volume/lib:/home/java/lib"
+     - "/home/workspace-compose/java/1-eureka/volume/logs/8761:/logs"
+    network_mode: "host"
+    command: java -Xms128m -Xmx256m -jar /home/java/lib/discover-service-0.0.1-SNAPSHOT.jar --server.port=8761
         
   eureka2: 
     image: java
     container_name: eureka2
     volumes: 
-     - "/home/spring-cloud-compose/java:/home/soft"
-     - "/home/spring-cloud-compose/temp/logs/eureka2:/logs"
-#    network_mode: "host"
-    privileged: true
-    ports:
-     - "8762:8762"
-    networks:
-      net1:  
-        ipv4_address: 172.90.0.3
-    command: java -Xms128m -Xmx256m -jar /home/soft/discover-service-0.0.1-SNAPSHOT.jar --server.port=8762  
+     - "/home/workspace-compose/java/1-eureka/volume/lib:/home/java/lib"
+     - "/home/workspace-compose/java/1-eureka/volume/logs/8762:/logs"
+    network_mode: "host"
+    command: java -Xms128m -Xmx256m -jar /home/java/lib/discover-service-0.0.1-SNAPSHOT.jar --server.port=8762
 
   eureka3: 
     image: java
     container_name: eureka3
     volumes: 
-     - "/home/spring-cloud-compose/java:/home/soft"
-     - "/home/spring-cloud-compose/temp/logs/eureka3:/logs"
-#    network_mode: "host"
-    privileged: true
-    ports:
-     - "8763:8763"
-    networks:
-      net1:  
-        ipv4_address: 172.90.0.4
-    command: java -Xms128m -Xmx256m -jar /home/soft/discover-service-0.0.1-SNAPSHOT.jar --server.port=8763  
-
-
-  config-service1: 
-    image: java
-    container_name: config-service1
-    volumes: 
-     - "/home/spring-cloud-compose/java:/home/soft"
-     - "/home/spring-cloud-compose/temp/config-center:/home/config-center"
-     - "/home/spring-cloud-compose/temp/logs/config-service1:/logs"
-#    network_mode: "host"
-    privileged: true
-    ports:
-     - "11001:11001"
-    networks:
-      net1:  
-        ipv4_address: 172.90.0.11
-    depends_on:
-     - eureka1
-     - eureka2
-     - eureka3
-    command: java -Xms128m -Xmx256m -jar /home/soft/config-service-0.0.1-SNAPSHOT.jar --server.port=11001  
-
-  config-service2: 
-    image: java
-    container_name: config-service2
-    volumes: 
-     - "/home/spring-cloud-compose/java:/home/soft"
-     - "/home/spring-cloud-compose/temp/config-center:/home/config-center"
-     - "/home/spring-cloud-compose/temp/logs/config-service2:/logs"
-#    network_mode: "host"
-    privileged: true
-    ports:
-     - "11002:11002"
-    networks:
-      net1:  
-        ipv4_address: 172.90.0.12
-    depends_on:
-     - eureka1
-     - eureka2
-     - eureka3
-    command: java -Xms128m -Xmx256m -jar /home/soft/config-service-0.0.1-SNAPSHOT.jar --server.port=11002
-
-  config-service3: 
-    image: java
-    container_name: config-service3
-    volumes: 
-     - "/home/spring-cloud-compose/java:/home/soft"
-     - "/home/spring-cloud-compose/temp/config-center:/home/config-center"
-     - "/home/spring-cloud-compose/temp/logs/config-service3:/logs"
-#    network_mode: "host"
-    privileged: true
-    ports:
-     - "11003:11003"
-    networks:
-      net1:  
-        ipv4_address: 172.90.0.13
-    depends_on:
-     - eureka1
-     - eureka2
-     - eureka3
-    command: java -Xms128m -Xmx256m -jar /home/soft/config-service-0.0.1-SNAPSHOT.jar --server.port=11003
-
-
-  
+     - "/home/workspace-compose/java/1-eureka/volume/lib:/home/java/lib"
+     - "/home/workspace-compose/java/1-eureka/volume/logs/8763:/logs"
+    network_mode: "host"
+    command: java -Xms128m -Xmx256m -jar /home/java/lib/discover-service-0.0.1-SNAPSHOT.jar --server.port=8763
 
