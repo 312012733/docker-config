@@ -12,7 +12,6 @@ services:
     container_name: kafka1
     privileged: true
     network_mode: "host"
-
     environment: 
       KAFKA_ADVERTISED_HOST_NAME: 127.0.0.1
       KAFKA_ADVERTISED_PORT: 9092 
