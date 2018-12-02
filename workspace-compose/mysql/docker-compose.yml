@@ -1,0 +1,16 @@
+version: '3'
+services:
+
+#docker run --name m1 --net=host -v /home/workspace-compose/mysql/volume/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=root -d mysql:5.7
+  
+  mysql1: 
+    image: mysql:5.7
+    container_name: mysql1
+    volumes: 
+     - "/home/workspace-compose/mysql/volume/data:/var/lib/mysql" #将主机当前目录下的data目录挂载到容器的 /var/lib/mysql 。
+     #- "/home/workspace-compose/mysql/volume/conf/my.cnf:/etc/mysql/my.cnf" #将主机当前目录下的 conf/my.cnf 挂载到容器的 /etc/mysql/my.cnf。
+     #- "/home/workspace-compose/mysql/volume/logs:/logs" #将主机当前目录下的 logs 目录挂载到容器的 /logs。
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    network_mode: "host"
+    privileged: true
