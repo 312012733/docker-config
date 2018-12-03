@@ -1,13 +1,31 @@
-version: '3'
+version: '3.1'
+
 services:
 
-  cassandra1: 
-    image: cassandra:3.11.3
-    container_name: cassandra1
+  mongo1:
+    image: mongo:4.0.4
+    container_name: mongo1
     volumes: 
-     - "/home/workspace-compose/cassandra/volume/conf/cassandra-3.11.3.yaml:/etc/cassandra/cassandra.yaml" 
-     - "/home/workspace-compose/cassandra/volume/data:/var/lib/cassandra" 
-#    environment:
-#      CASSANDRA_LISTEN_ADDRESS: 
+     #- "/home/workspace-compose/mongo/volume/conf:/etc/mongo"
+     #- "/home/workspace-compose/mongo/volume/logs:/var/log/mongodb/"
+     - "/home/workspace-compose/mongo/volume/data/db:/data/db" 
+     - "/home/workspace-compose/mongo/volume/data/configdb:/data/configdb" 
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
     network_mode: "host"
+    privileged: true
+    #command: --config /etc/mongo/mongod.conf
+    
+  mongo-express1:
+    image: mongo-express
+    container_name: mongo-express1
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: root
+      ME_CONFIG_MONGODB_PORT: 27017
+      ME_CONFIG_MONGODB_SERVER: 127.0.0.1
+    network_mode: "host"
+    #ports:
+    #  - 8088:8081
     privileged: true
