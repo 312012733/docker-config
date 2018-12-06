@@ -1,13 +1,15 @@
 version: '3'
 services:
 
-  cassandra1: 
-    image: cassandra:3.11.3
-    container_name: cassandra1
+  rabbitmq1: 
+    image: rabbitmq:3.7.8-management
+    container_name: rabbitmq1
+    hostname: rabbitmq1 #port:5672  15672
     volumes: 
-     - "/home/workspace-compose/cassandra/volume/conf/cassandra-3.11.3.yaml:/etc/cassandra/cassandra.yaml" 
-     - "/home/workspace-compose/cassandra/volume/data:/var/lib/cassandra" 
-#    environment:
-#      CASSANDRA_LISTEN_ADDRESS: 
-    network_mode: "host"
-    privileged: true
+     - "/home/workspace-compose/rabbitmq/data:/var/lib/rabbitmq" 
+     - "/home/workspace-compose/rabbitmq/volume/conf/rabbitmq-3.7.8.conf:/etc/rabbitmq/rabbitmq.conf" 
+  environment:
+    - RABBITMQ_DEFAULT_USER=root
+    - RABBITMQ_DEFAULT_PASS=root
+  network_mode: "host"
+  privileged: true
