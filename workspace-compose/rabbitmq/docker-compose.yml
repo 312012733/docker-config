@@ -5,11 +5,11 @@ services:
     image: rabbitmq:3.7.8-management
     container_name: rabbitmq1
     hostname: rabbitmq1 #port:5672  15672
+    network_mode: "host"
+    privileged: true
     volumes: 
-     - "/home/workspace-compose/rabbitmq/data:/var/lib/rabbitmq" 
-     - "/home/workspace-compose/rabbitmq/volume/conf/rabbitmq-3.7.8.conf:/etc/rabbitmq/rabbitmq.conf" 
-  environment:
-    - RABBITMQ_DEFAULT_USER=root
-    - RABBITMQ_DEFAULT_PASS=root
-  network_mode: "host"
-  privileged: true
+     - "/home/workspace-compose/rabbitmq/volume/data:/var/lib/rabbitmq" 
+#     - "/home/workspace-compose/rabbitmq/volume/conf/rabbitmq-3.7.8.conf:/etc/rabbitmq/rabbitmq.conf" 
+    environment:
+      RABBITMQ_DEFAULT_USER: root
+      RABBITMQ_DEFAULT_PASS: root
