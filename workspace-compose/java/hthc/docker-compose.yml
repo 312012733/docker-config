@@ -1,0 +1,25 @@
+version: '3'
+services:
+
+#docker run -it -d --net=host --name j1 -v /home/workspace-compose/java/hthc/volume/lib:/home/java/lib -v /home/workspace-compose/java/hthc/volume/logs:/logs java java -Xms128m -Xmx256m -jar /home/java/lib/discover-service-0.0.1-SNAPSHOT.jar --server.port=8761
+
+  hthc-message-push: 
+    image: 312012733/java8_ffmpeg
+    container_name: hthc-message-push
+    volumes: 
+     - "/home/workspace-compose/java/hthc/volume/lib:/home/java/lib"
+     - "/home/workspace-compose/java/hthc/volume/logs/10206:/hthc-logs/logs"
+    network_mode: "host"
+    command: java -Xms128m -Xmx256m -jar /home/java/lib/hthc-message-push-1.0.jar --server.port=10206
+        
+  hthc-sys-admin: 
+    image: 312012733/java8_ffmpeg
+    container_name: hthc-sys-admin
+    volumes: 
+     - "/home/workspace-compose/java/hthc/volume/lib:/home/java/lib"
+     - "/home/workspace-compose/java/hthc/volume/logs/10201:/hthc-logs/logs"
+    network_mode: "host"
+    command: java -Xms128m -Xmx256m -jar /home/java/lib/hthc-sys-admin-1.0.jar --server.port=10201
+
+
+
