@@ -9,6 +9,7 @@ services:
     volumes: 
      - "/home/workspace-compose/java/hthc/volume/lib:/home/java/lib"
      - "/home/workspace-compose/java/hthc/volume/logs/10206:/hthc-logs/logs"
+     - "/etc/localtime:/etc/localtime"
     network_mode: "host"
     command: java -Xms128m -Xmx256m -jar /home/java/lib/hthc-message-push-1.0.jar --server.port=10206
         
@@ -18,6 +19,7 @@ services:
     volumes: 
      - "/home/workspace-compose/java/hthc/volume/lib:/home/java/lib"
      - "/home/workspace-compose/java/hthc/volume/logs/10201:/hthc-logs/logs"
+     - "/etc/localtime:/etc/localtime"
     network_mode: "host"
     command: java -Xms128m -Xmx256m -jar /home/java/lib/hthc-sys-admin-1.0.jar --server.port=10201
 

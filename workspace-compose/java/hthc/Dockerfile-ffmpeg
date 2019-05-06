@@ -1,0 +1,24 @@
+FROM java
+MAINTAINER 312012733 "312012733@qq.com"
+ENV REFRESHED_AT 2016-02-26
+ENV FFMPEG_VERSION 3.0
+
+WORKDIR /tmp
+
+RUN wget -q https://www.johnvansickle.com/ffmpeg/old-releases/ffmpeg-4.0.3-64bit-static.tar.xz \
+  && tar xJf /tmp/ffmpeg-4.0.3-64bit-static.tar.xz -C /tmp \
+  && mv /tmp/ffmpeg-4.0.3-64bit-static/ffmpeg /usr/local/bin/ \
+  && rm -rf /tmp/ffmpeg*
+
+CMD ["--help"]
+ENTRYPOINT ["ffmpeg"]
+
+
+
+
+
+
+
+
+
+
