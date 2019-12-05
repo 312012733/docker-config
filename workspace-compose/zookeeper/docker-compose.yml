@@ -1,0 +1,13 @@
+version: '3'
+services:
+  zookeeper1:
+    #image: wurstmeister/zookeeper
+    image: zookeeper:3.4.13
+    container_name: zookeeper1
+    privileged: true
+    network_mode: "host"
+    volumes: 
+     - "/home/workspace-compose/kafka/volume/zookeeper/data:/data"
+     - "/home/workspace-compose/kafka/volume/zookeeper/datalog:/datalog"
+     - "/home/workspace-compose/kafka/volume/zookeeper/logs:/logs"
+#     - "/home/workspace-compose/kafka/volume/zookeeper/conf/zoo.cfg:/conf/zoo.cfg 
