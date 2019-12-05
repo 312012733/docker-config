@@ -19,6 +19,5 @@ services:
       KAFKA_LOG_DIRS: /home/kafka/logs
       KAFKA_BROKER_ID: 2 
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1 
-    depends_on: 
-     - zookeeper1
+
 
